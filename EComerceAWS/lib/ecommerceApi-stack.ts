@@ -8,6 +8,7 @@ import { Construct } from "constructs"
 
 interface EcommerceApiStackProps extends cdk.StackProps{
     productsFetchHandler: lambdaNodeJs.NodejsFunction
+    productsAdminHandler: lambdaNodeJs.NodejsFunction
 }
 
 export class ECommerceApiStack extends cdk.Stack{
@@ -37,9 +38,24 @@ export class ECommerceApiStack extends cdk.Stack{
 
         const productsFetchIntegration = new apigateway.LambdaIntegration(props.productsFetchHandler)
 
-        // "/products"
+        // GET "/products"
         const productsResource = api.root.addResource("products")
         productsResource.addMethod("GET", productsFetchIntegration)
+
+        // GET "/products/{id}"
+        const productsIdResouce = productsResource.addResource("{id}")
+        productsIdResouce.addMethod("GET", productsFetchIntegration)
+
+        const productsAdminIntegration = new apigateway.LambdaIntegration(props.productsAdminHandler)
+
+        // POST "/products"
+        productsResource.addMethod("POST", productsAdminIntegration)
+
+        // PUT "/products/{id}"
+        productsIdResouce.addMethod("PUT", productsAdminIntegration)
+
+        // DELETE "/products/{id}"
+        productsIdResouce.addMethod("DELETE", productsAdminIntegration)
 
     }
 

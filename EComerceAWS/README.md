@@ -64,6 +64,12 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
   cdk deploy --all
     faz o deploy de todas as stacks
 
+  cdk destroy --all
+    destroi todos os recursos
+
+  cdk deploy --all --require-approval never
+    faz o deploy sem requisitar questões durante o processo
+
 ## Dependencies added
   npm install aws-sdk --save-dev
   npm install @types/aws-lambda --save-dev

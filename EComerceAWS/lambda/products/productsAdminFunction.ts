@@ -11,31 +11,33 @@ export async function handler(
     const method = event.httpMethod
     if(event.resource === "/products"){
 
-        if(method === "GET"){
-            console.log("GET /products")
+        if(method === "POST"){
+            console.log("POST /products")
 
             return {
-                statusCode: 200,
+                statusCode: 201,
                 body: JSON.stringify({
-                    message: "GET Products - OK"
+                    message: "POST Products - OK"
                 })
             }
-
         } 
 
-    }else if(event.resource === "/products/{id}"){
-            
-        if(method === "GET"){
-            const productId = event.pathParameters!.id as string
-            console.log(`GET /products/${productId}`)
+    } else if(event.resource === "/products/{id}"){
 
-            return {
-                statusCode: 200,
-                body: JSON.stringify({
-                    message: `GET /products/${productId}`
-                })
-            }
+        const productId = event.pathParameters!.id as string        
+        if(method === "PUT"){
+            console.log(`PUT /products/${productId}`)
 
+        } else if(method === "DELETE"){
+            console.log(`DELETE /products/${productId}`)
+
+        }
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                message: `${method} /products/${productId}`
+            })
         }
 
     }

@@ -3,6 +3,8 @@
 *.d.ts
 node_modules
 
+/test/test-api-url.http
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out
